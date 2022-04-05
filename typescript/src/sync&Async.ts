@@ -34,7 +34,7 @@ console.log("코드 끝")
 
  */
 
-function taskA(a: number,b: number, cb: (res:number)=> void):void {
+/* function taskA(a: number,b: number, cb: (res:number)=> void):void {
     setTimeout(() => {
       const res = a+b
       cb(res)  
@@ -65,4 +65,4 @@ taskA(4,5, (a_res) => {
     })
 })
 
-console.log("코드 끝")
+console.log("코드 끝") */

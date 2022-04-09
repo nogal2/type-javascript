@@ -4,10 +4,8 @@ const UnmountTest = () => {
     
     useEffect(() => {
         console.log("Mount!")
-
-        
         return () => {
-            // Unmount 시점에 실행되게 됨
+            // 이렇게 함수를 반환할 때 Unmount 시점에 실행되게 됨 
             console.log("Unmount!")
         }
     }, []) 

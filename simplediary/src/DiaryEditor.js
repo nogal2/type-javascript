@@ -1,9 +1,16 @@
-import React, { useRef, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
+import { DiaryDispatchContext } from "./App"
 
-const DiaryEditor = ({onCreate}) => {
+const DiaryEditor = () => {
+
+    const {onCreate} = useContext(DiaryDispatchContext)
+
+    //useEffect(() => {console.log("Diary Editor 렌더")})
+
     // useRef => Dom 요소에 접근할수 있도록해줌.
     const authorInput = useRef()
     const contentInput = useRef()
+
     const [state, setState] = useState({
         author:"",
         content:"",
@@ -32,7 +39,7 @@ const DiaryEditor = ({onCreate}) => {
         }
 
         onCreate(state.author, state.content, state.emotion)
-        console.log(state)
+        //console.log(state)
         alert('저장 성공')
         setState({
             author: "",
@@ -94,4 +101,4 @@ const DiaryEditor = ({onCreate}) => {
     )
     
 }
-export default DiaryEditor
+export default React.memo(DiaryEditor)

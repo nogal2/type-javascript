@@ -4,3 +4,10 @@
     API를 호출한다는것은 다른 프로그램한테 데이터를 받기 위해 말을 건다고 생각하면된다.
 */
 console.log("fesaf")
+
+var keyname = "my";
+var postfix = "Age";
+var value = 27;
+var something = {};
+something[keyname + postfix] = value;
+console.log(something)

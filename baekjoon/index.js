@@ -1,4 +1,3 @@
-const fs = require('fs')
-const inputData = fs.readFileSync('/dev/stdin').toString().split(' ').map((val)=> +val)
-const [a,b] = inputData
-console.log(a/b)
+let lottos = [7, 6, 6, 5, 4, 3, 2, 1];
+let zeroCount = lottos.filter((v) => !v);
+console.log(lottos[6]);

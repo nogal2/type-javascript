@@ -1,10 +1,18 @@
-type Reverse = {
-  (from: Date, to: Date, destination: string): Reservation;
-  (from: Date, destination: string): Reservation;
-};
+type Mapp = <T, U>(array: T[], f: (item: T) => U) => U[];
 
-let reserve: Reserve = (
-  from: Date,
-  to: Date | string,
-  destination?: string
-) => {};
+function map(array: unknown[], f: (item: unknown) => unknown): unknown[] {
+  let result = [];
+  for (let i = 0; i < array.length; i++) {
+    result[i] = f(array[i]);
+  }
+  return result;
+}
+
+let promise = new Promise<number>((resolve) => resolve(45));
+
+promise.then((result) => console.log(result * 4));
+
+type MyEvent<T> = {
+  target: T;
+  type: string;
+};

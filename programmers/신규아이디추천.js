@@ -28,6 +28,25 @@ if (new_id.length <= 2) {
   new_id = new_id.padEnd(3, new_id[new_id.length - 1]);
 }
 
+function solution(new_id) {
+  new_id = new_id
+    .toLowerCase()
+    .replace(/[^\w\.\-]/g, "")
+    .replace(/[\.]{2,}/g, ".")
+    .replace(/^\./, "")
+    .replace(/\.$/, "");
+  if (!new_id) {
+    new_id = "a";
+  }
+  if (new_id.length >= 16) {
+    new_id = new_id.slice(0, 15).replace(/\.$/, "");
+  }
+  if (new_id.length <= 2) {
+    new_id = new_id.padEnd(3, new_id[new_id.length - 1]);
+  }
+  return new_id;
+}
+
 //내가 푼것.( 정규표현식임을 알았음에도 그냥 해봄;;)
 function solution(new_id) {
   let answer = new_id.toLowerCase(); // 1 소문자 변환

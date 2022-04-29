@@ -1,5 +1,5 @@
-//const input = require("fs").readFileSync("/dev/stdin").toString().split("\n");
-const input = [
+const input = require("fs").readFileSync("/dev/stdin").toString().split("\n");
+/* const input = [
   "14",
   "push 1",
   "push 2",
@@ -15,7 +15,7 @@ const input = [
   "push 3",
   "empty",
   "top",
-];
+]; */
 
 const numbers = parseInt(input[0]);
 const stack = [];

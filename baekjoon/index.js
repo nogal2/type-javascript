@@ -1,13 +1,11 @@
-var foo = new Object();
-
-foo.name = "foo";
-foo.age = 30;
-foo.gender = "male";
-
-console.log(typeof foo);
-console.log(foo);
-var foo = {
-  name: "foo",
-  age: 30,
-  gender: "male",
-};
+//const input = require("fs").readFileSync("/dev/stdin").toString().split("\n");
+const input = [1];
+const numbers = parseInt(input[0]);
+const stack = [];
+const command = ["push", "pop", "size", "empty", "top"];
+//console.log(command.includes("pp"));
+for (let i = 1; i < numbers; i++) {
+  if(!command.includes(input[i]) {
+    
+  }
+}

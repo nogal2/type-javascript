@@ -1,5 +1,6 @@
 function solution(board, moves) {
   let answer = 0;
+  let loopCount = 0;
   let pick = [];
 
   // 인형 뽑아 올리고 다른 배열로 옮김.
@@ -14,12 +15,15 @@ function solution(board, moves) {
   }
 
   // 같은 인형은 삭제.
-  for (let i = 0; i < pick.length - 1; i++) {
-    if (pick[i] === pick[i + 1]) {
-      pick[i] = 0;
-      pick[i + 1] = 0;
-      answer++;
+  while (answer >= loopCount) {
+    for (let i = 0; i < pick.length - 1; i++) {
+      if (pick[i] === pick[i + 1]) {
+        pick.splice(i, 2);
+        answer = answer + 2;
+        break;
+      }
     }
+    loopCount++;
   }
   return answer;
 }
@@ -43,6 +47,7 @@ let board = [
   [3, 5, 1, 3, 1],
 ];
 let a = 0;
+let loopCount = 0;
 let moves = [1, 5, 3, 5, 1, 2, 1, 4];
 //4 3 1 1 3 2 4
 let pick = [];
@@ -56,11 +61,16 @@ for (let i = 0; i < moves.length; i++) {
   }
 }
 
-for (let i = 0; i < pick.length - 1; i++) {
-  if (pick[i] === pick[i + 1]) {
-    pick.splice(pick[i], 2);
-    a++;
+while (a >= loopCount) {
+  for (let i = 0; i < pick.length - 1; i++) {
+    if (pick[i] === pick[i + 1]) {
+      pick.splice(i, 2);
+      a = a + 2;
+      break;
+    }
   }
+  loopCount++;
 }
+
 console.log(pick);
 console.log(a);

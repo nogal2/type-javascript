@@ -1,11 +1,13 @@
-function solution(absolutes, signs) {
-  for (let i = 0; i < absolutes.length; i++) {
-    absolutes[i] = signs[i] ? absolutes[i] : -absolutes[i];
+// 내 풀이
+function solution(a, b) {
+  let answer = 0;
+  for (let i = 0; i < a.length; i++) {
+    answer += a[i] * b[i];
   }
-
-  const answer = absolutes.reduce((prev, curr) => prev + curr);
-
   return answer;
 }
 
-console.log(solution([4, 7, 12], [true, false, true]));
+// 다른사람풀이
+function solution(a, b) {
+  return a.reduce((acc, _, i) => (acc += a[i] * b[i]), 0);
+}

@@ -1,13 +1,26 @@
-// 내 풀이
-function solution(a, b) {
-  let answer = 0;
-  for (let i = 0; i < a.length; i++) {
-    answer += a[i] * b[i];
+function solution(nums) {
+  let len = nums.length,
+    answer = 0;
+
+  for (let i = 0; i < len - 2; i++) {
+    for (let j = i + 1; j < len - 1; j++) {
+      for (let k = j + 1; k < len; k++) {
+        if (isPrime(nums[i] + nums[j] + nums[k])) {
+          answer++;
+        }
+      }
+    }
   }
+
   return answer;
 }
 
-// 다른사람풀이
-function solution(a, b) {
-  return a.reduce((acc, _, i) => (acc += a[i] * b[i]), 0);
-}
+const isPrime = (n) => {
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+
+  return true;
+};

@@ -16,3 +16,10 @@ type MyEvent<T> = {
   target: T;
   type: string;
 };
+
+let a = 0;
+
+if (true) {
+  let a = 1;
+}
+console.log(a); // 0

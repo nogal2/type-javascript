@@ -1,11 +1,13 @@
-function A(arg) {
-  if (!(this instanceof A)) return A(arg);
-  this.value = arg ? arg : 0;
+function solution(n, lost, reserve) {
+  let answer = 0;
+
+  lost.map((val) => {
+    if(!reserve.includes(val)) {
+      reserve.includes(val-1) ? answer += 1 : answer = answer
+    } 
+    else if(reserve.includes(val)) {
+      
+    }
+  })
+  return answer;
 }
-
-let a = new A(100);
-let b = A(10);
-
-console.log(a.value);
-console.log(b.value);
-console.log(global.value);

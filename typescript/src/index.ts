@@ -1,24 +1,45 @@
-type HasSides = {numberOfSides: number}
-type SidesHaveLength = {sideLength: number}
-
-function logPerimeter<Shape extends HasSides & SidesHaveLength> (s:Shape): Shape {
-  console.log(s.numberOfSides * s.sideLength)
-  return s
+type Food = {
+  calories: number
+  tasty: boolean
 }
 
-type Square = HasSides & SidesHaveLength
-let square:Square = {numberOfSides: 4, sideLength: 3}
-logPerimeter(square)
-
-function call<T extends unknown[], R>(
-  f: (...args: T) => R,
-  ...args: T
-): R {
-  return f(...args)
+type Sushi = Food & {
+  salty: boolean
 }
 
-function fill(length: number, value: string): string[] {
-  return Array.from({length}, () => value)
+type Cake = Food & {
+  sweet: boolean
 }
 
-console.log(call(fill, 10, 'a'))
+interface IFood {
+  calories: number
+  tasty: boolean
+}
+
+interface ISushi extends Food {
+  salty: boolean
+}
+
+interface ICake extends Food {
+  sweet: boolean
+}
+
+interface A {
+  good(x: number): string
+  bad(x:number): string
+}
+
+interface B extends A {
+  good(x:string | number): string
+  bad(x:string): string
+}
+
+type a = {
+  good(x: number): string
+  bad(x:number): string
+}
+
+type b = a & {
+  good(x:string | number): string
+  bad(x:string): string // bad를 오버로드함.
+}

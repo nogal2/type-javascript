@@ -1,45 +1,29 @@
-type Food = {
-  calories: number
-  tasty: boolean
+interface Animal {
+  readonly name: string
+  eat(food: string): void
+  sleep(hours: number): void
 }
 
-type Sushi = Food & {
-  salty: boolean
+interface Feline {
+  meow(): void
 }
 
-type Cake = Food & {
-  sweet: boolean
+class Cat implements Animal {
+  name = 'navi'
+  eat(food:string) {
+    console.info('Ate some', food, '. Mmm!')
+  }
+
+  sleep(hours: number) {
+    console.info('Slept for', hours, 'hours')
+  }
+  meow() {
+    console.log("CAT")
+  }
 }
 
-interface IFood {
-  calories: number
-  tasty: boolean
-}
+const abc = new Cat();
+console.log(abc)
+abc.meow()
 
-interface ISushi extends Food {
-  salty: boolean
-}
 
-interface ICake extends Food {
-  sweet: boolean
-}
-
-interface A {
-  good(x: number): string
-  bad(x:number): string
-}
-
-interface B extends A {
-  good(x:string | number): string
-  bad(x:string): string
-}
-
-type a = {
-  good(x: number): string
-  bad(x:number): string
-}
-
-type b = a & {
-  good(x:string | number): string
-  bad(x:string): string // bad를 오버로드함.
-}

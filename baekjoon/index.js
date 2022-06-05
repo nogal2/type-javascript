@@ -1,3 +1,28 @@
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+var person = {
+  name: "zzoon",
+  getName: function () {
+    return this.name;
+  },
+  setName: function (arg) {
+    this.name = arg;
+  },
+};
+
+function create_object(o) {
+  function F() {}
+  F.prototype = o;
+  return new F();
+}
+
+var student = create_object(person);
+
+student.setName("me");
+console.log(student.getName());
+=======
+>>>>>>> Stashed changes
 function HelloFunc() {
     this.greeting = 'hello';
 }
@@ -30,4 +55,9 @@ newObj.prototype.who = function(greeting, name) {
 }
 
 var obj1 = new newObj(objHello, 'zzoon');
+<<<<<<< Updated upstream
 obj1.call();
+=======
+obj1.call();
+>>>>>>> 23f9c13b47fc5b687a7dd30474d24f1a01ef5dff
+>>>>>>> Stashed changes

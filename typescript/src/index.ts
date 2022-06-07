@@ -1,29 +1,26 @@
-interface Animal {
-  readonly name: string
-  eat(food: string): void
-  sleep(hours: number): void
+type Shoe = {
+  purpose: string
 }
 
-interface Feline {
-  meow(): void
+class BalletFlat implements Shoe {
+  purpose = 'dancing';
 }
 
-class Cat implements Animal {
-  name = 'navi'
-  eat(food:string) {
-    console.info('Ate some', food, '. Mmm!')
-  }
-
-  sleep(hours: number) {
-    console.info('Slept for', hours, 'hours')
-  }
-  meow() {
-    console.log("CAT")
-  }
+class Boot implements Shoe {
+  purpose = 'woodcutting'
 }
 
-const abc = new Cat();
-console.log(abc)
-abc.meow()
+class Sneaker implements Shoe {
+  purpose = 'walking';
+}
 
-
+let Shoe = {
+  create(type: 'balletFlat' | 'boot' | 'sneaker'):Shoe {
+    switch(type) {
+      case 'balletFlat': return new BalletFlat
+      case 'boot': return new Boot
+      case 'sneaker': return new Sneaker
+    }
+  }
+}
+console.log(Shoe.create('balletFlat'))

@@ -1,26 +1,34 @@
-type Shoe = {
-  purpose: string
+// 서버로부터 받은 기존 사용자
+type ExistingUser = {
+  id: number
+  name: string
 }
 
-class BalletFlat implements Shoe {
-  purpose = 'dancing';
+// 아직 서버에 저장하지 않은 새 사용자
+type NewUser = {
+  name:string
 }
 
-class Boot implements Shoe {
-  purpose = 'woodcutting'
+function deleteUser(user: {id?: number, name: string}) {
+  delete user.id
 }
 
-class Sneaker implements Shoe {
-  purpose = 'walking';
+let existingUser: ExistingUser = {
+  id: 123456,
+  name: 'Ima User'
 }
 
-let Shoe = {
-  create(type: 'balletFlat' | 'boot' | 'sneaker'):Shoe {
-    switch(type) {
-      case 'balletFlat': return new BalletFlat
-      case 'boot': return new Boot
-      case 'sneaker': return new Sneaker
-    }
-  }
+deleteUser(existingUser)
+console.log(existingUser)
+
+type LegacyUser = {
+  id?: number | string
+  name: string
 }
-console.log(Shoe.create('balletFlat'))
+
+let legacyUser: LegacyUser = {
+  id: '793331',
+  name: 'Xin Yang'
+}
+
+deleteUser(legacyUser)

@@ -1,56 +1,47 @@
-/* 
-let a = 'x'
-let b = 3
-var c = true
-const d = {x:3}
- */
-
-let a: 'x' = 'x'
-let b: 3 = 3
-var c: true = true
-const d: {x:3} = {x:3}
-
-let e = {x:3} as const
-let f = [1, {x:2}]
-let g = [1, {x:2}] as const
-
-type Options = {
-  baseURL: string
-  cacheSize?: number
-  tier?: 'prod' | 'dev'
+type APIResponse = {
+  user: {
+    userId: string
+    friendList: {
+      count: number
+      friends: {
+        firstName: string
+        lastName: string
+      }[]
+    }
+  }
 }
 
-class API {
-  constructor(private options: Options) {}
+type ResponseKeys = keyof APIResponse // 'user'
+type UserKeys = keyof APIResponse['user'] // 'userId' | 'friendList'
+type friendListKeys = keyof APIResponse['user']['friendList'] // 'count' | 'friends'
+
+function get<O extends object, K extends keyof O>(o: O, k: K): O[K] {
+  return o[k];
+} 
+
+type ActivityLog = {
+  lastEvent: Date
+  events: {
+    id: string
+    timestamp: Date
+    type: 'Read' | 'White'
+  }[]
 }
 
-const abc = new API({baseURL: 'sef', cacheSize: 21, tier:'dev'});
-console.log(abc)  // API { options: { baseURL: 'sef', cacheSize: 21, tier: 'dev' } }
+let activityLog: ActivityLog  = { lastEvent: new Date(), events: [{id: 'asfe', timestamp: new Date(), type: 'Read'}]}
+let lastEvent = get(activityLog, 'lastEvent');
 
-new API({
-  baseURL: 'https://api.mysite.com',
-  tier: 'prod'
-})
-
-new API({
-  baseURL:'https://api.mysite.com',
-  badTier: 'prod'
-})
-
-new API ({
-  baseURL:'https://api.mysite.com',
-  badTier: 'prod'
-} as Options)
-
-let badOptions = {
-  baseURL: 'https://api.mysite.com',
-  badTier: 'prod',
+type Get = {
+  <O extends object, K1 extends keyof O> (o:O, k1:K1):O[K1]
+  <O extends object, K1 extends keyof O, K2 extends keyof O[K1]>(o: O, k1: K1, k2: K2): O[K1][K2]
+  <O extends object, K1 extends keyof O, K2 extends keyof O[K1], K3 extends keyof O[K1][K2]>(o: O, k1: K1, k2: K2, k3:K3): O[K1][K2][K3]
 }
-new API(badOptions)
 
-let options: Options = {
-  baseURL: 'https://api.mysite.com',
-  badTier: 'prod'
+let get1:Get = (object: any, ...keys: string[]) => {
+  let result = object
+  keys.forEach(k => result = result[k])
+  return result
 }
-new API(options);
 
+get1(activityLog, 'events', 0, 'type');
+get1(activityLog, 'bad');

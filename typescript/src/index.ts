@@ -1,47 +1,51 @@
-type APIResponse = {
-  user: {
-    userId: string
-    friendList: {
-      count: number
-      friends: {
-        firstName: string
-        lastName: string
-      }[]
-    }
-  }
+type Account = {
+  id: number
+  isEmployee: boolean
+  notes: string[]
 }
 
-type ResponseKeys = keyof APIResponse // 'user'
-type UserKeys = keyof APIResponse['user'] // 'userId' | 'friendList'
-type friendListKeys = keyof APIResponse['user']['friendList'] // 'count' | 'friends'
-
-function get<O extends object, K extends keyof O>(o: O, k: K): O[K] {
-  return o[k];
-} 
-
-type ActivityLog = {
-  lastEvent: Date
-  events: {
-    id: string
-    timestamp: Date
-    type: 'Read' | 'White'
-  }[]
+// 모든 필드를 선택형으로 만듦
+type OptionalAccount = {
+  [ K in keyof Account]?: Account[K]
+}
+let a:OptionalAccount = {
+  id: 123,
+  isEmployee: true,
 }
 
-let activityLog: ActivityLog  = { lastEvent: new Date(), events: [{id: 'asfe', timestamp: new Date(), type: 'Read'}]}
-let lastEvent = get(activityLog, 'lastEvent');
-
-type Get = {
-  <O extends object, K1 extends keyof O> (o:O, k1:K1):O[K1]
-  <O extends object, K1 extends keyof O, K2 extends keyof O[K1]>(o: O, k1: K1, k2: K2): O[K1][K2]
-  <O extends object, K1 extends keyof O, K2 extends keyof O[K1], K3 extends keyof O[K1][K2]>(o: O, k1: K1, k2: K2, k3:K3): O[K1][K2][K3]
+// 모든 필드를 nullable로 만듦
+type NullableAccount = {
+  [ K in keyof Account]: Account[K] | null
+}
+let b: NullableAccount = {
+  id: 123,
+  isEmployee: null,
+  notes: ['asfe']
 }
 
-let get1:Get = (object: any, ...keys: string[]) => {
-  let result = object
-  keys.forEach(k => result = result[k])
-  return result
+// 모든 필드를 읽기 전용으로 만듦
+type ReadonlyAccount = {
+  readonly [K in keyof Account]: Account[K] 
 }
 
-get1(activityLog, 'events', 0, 'type');
-get1(activityLog, 'bad');
+let c:ReadonlyAccount = {
+  id:1234,
+  isEmployee: true,
+  notes: ['']
+}
+
+// 모든 필드를 다시 쓸 수 있도록 만듦(Account와 같음)
+type Account2 = {
+  -readonly [ K in keyof OptionalAccount]-?: Account[K]
+}
+
+let d: Account2 = {
+  id:1234,
+  isEmployee:false,
+  notes:['asf']
+}
+
+// 모든 필드를 다시 필수형으로 만듬(Account와 같음)
+type Account3 = {
+  [K in keyof OptionalAccount]-?: Account[K]
+}

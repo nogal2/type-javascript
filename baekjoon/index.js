@@ -1,6 +1,8 @@
-console.log(zero);
-sayWow();
-function sayWow() {
-    console.log('wow');
+const a = {
+    a:'',
+    b:'',
+    c:''
 }
-var zero = 'zero'
+
+const abc = [ {}]
+console.log(a);

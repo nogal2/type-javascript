@@ -1,58 +1,34 @@
-let makeClosure = function () {
-  let name = "zero";
-  return function () {
-    console.log(name);
-  };
-};
-
-let closure = makeClosure();
-closure();
-
-"전역 컨텍스트" = {
-  변수객체: {
-    arguments: null,
-    variable: [{makeClosure: function}, 'closure']  ,
-  },
-  scopeChain: ['전역 변수객체'],
-  this: window,
-}
-"makeClosure 컨텍스트"= {
-  변수객체: {
-    arguments: null,
-    variable: [{name:'zero'}]
-  },
-  scopeChain: ['makeClosure 변수객체', '전역 변수객체'],
-  this: window,
-}
-
-'closure 컨텍스트'= {
-  변수객체: {
-    arguments: null,
-    variable: null,
-  },
-  scopeChain: ['closure 변수객체', 'makeClosure 변수객체', '전역 변수객체'],
-  this: window,
-}
-
-let counter = function() {
-  let count = 0;
-  function changeCount(number) {
-    count += number;
+function fact(num) {
+  let val = 1;
+  for(let i = 2; i <= num; i++) {
+    val = val * i;
   }
-  return {
-    increase: function () {
-      changeCount(1);
-    },
-    decrease: function() {
-      changeCount(-1);
-    },
-    show: function() {
-      alert(count);
+  return val;
+}
+
+console.log(fact(10));
+
+function fact2(num) {
+  if(num === 0) return 1;
+  else return num * fact2(num-1);
+}
+
+console.log(fact2(10));
+
+let fact3 = function() {
+  let cache = {'0': 1};
+  let func = function(n) {
+    let result = 0;
+
+    if(typeof(cache[n]) === 'number') {
+      result = cache[n];
+    } else {
+      result = cache[n] = n * func(n-1);
     }
+
+    return result;
   }
-};
-let counterClosure = counter();
-counterClosure.increase();
-counterClosure.show();
-counterClosure.decrease();
-counterClosure.show();
+  return func;
+}();
+
+console.log(fact3(10));

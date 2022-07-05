@@ -1,13 +1,17 @@
-type Executor<T> = (
-    resolve: (result: T) => void,
-    reject: (error: unknown) => void
-) => void
-class Promise1<T> {
-    constructor(f: Executor<T>) {}
-    then<U>(g: (result: T) => Promise1<U>): Promise1<U> {}
-    catch<U>(g: (error: unknown) => Promise1<U>): Promise1<U> {}
+type Protocol = {
+    [command: string] : {
+        in: unknown[]
+        out: unknown
+    }
 }
 
-
-
-
+function createProtocol<P extends Protocol>(script: string) {
+    return <K extends keyof P>(command: K) => 
+        (...args: P[K]['in']) =>
+            new Promise<P[K]['out']>((resolve, reject) => {
+                let worker = new Worker(script)
+                worker.onerror = reject
+                worker.onmessage = event => resolve(event.data.data)
+                worker.postMessage({command, args})
+            })
+}

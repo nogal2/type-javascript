@@ -1,22 +1,21 @@
-function add(x:number): (number:number) => number { // 바깥쪽 유효범위 시작
-    return function(y:number): number { // 안쪽 유효범위 시작
-        return x+y; // 클로저
-    }   // 안쪽 유효범위 끝
-}   // 바깥쪽 유효범위 끝
-
-const makeNames = (): () => string => {
-    const names = ['jack', 'jane', 'smith']
-    let index = 0;
-    console.log('a');
-    return (): string => {
-        console.log(index);
-        if(index == names.length) {
-            index = 0;   
-        }
-        return names[index++];
-    }
+interface IValuable<T> {
+    value: T   
 }
 
-const makeName: () => string = makeNames();
-console.log([1,2,3,4,5,6].map(n => makeName()));
-console.log(makeName());
+const printValueT = <Q, T extends IValuable<Q>>(o:T) => console.log(o.value);
+
+const 맛집 = (식당: string) => {
+    return 식당;
+}
+
+// 락헌
+const 락헌 = 맛집('피자스쿨');
+
+// 락헌썸녀
+const 락헌썸녀 = 맛집('이탈리안화덕피자');
+
+if(락헌 !== 락헌썸녀) {
+    console.log('랜교 놀림감');
+} else {
+    console.log('그럴일 없음');
+}
